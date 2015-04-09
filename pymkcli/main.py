@@ -26,7 +26,7 @@ def MakeProjectFolder(name):
 
 
 def MakeReadme(name):
-    readme = name + "/README.md"
+    readme = os.path.join(name, "README.md")
     buffer = ("{0}\n"
               "===============\n"
               "This is a skeleton readme made by pymkcli\n"
@@ -40,14 +40,14 @@ def MakeReadme(name):
 
 
 def MakeModule(name):
-    modulepath = name + "/" + name
+    modulepath = os.path.join(name, name)
     try:
         os.makedirs(modulepath)
     except Exception:
         print "Unable to create project module folder {0}".format(modulepath)
         sys.exit(1)
 
-    initpath = modulepath + "/__init__.py"
+    initpath = os.path.join(modulepath, "__init__.py")
     try:
         with open(initpath, 'a'):
             os.utime(initpath, None)
@@ -57,7 +57,7 @@ def MakeModule(name):
 
 
 def MakeSetupPy(name):
-    setuppath = name + "/setup.py"
+    setuppath = os.path.join(name, "setup.py")
     s = ("from setuptools import setup, find_packages\n\n"
          "setup(\n"
          "    name='{0}',\n"
@@ -84,7 +84,7 @@ def MakeSetupPy(name):
 
 
 def MakeMainPy(name):
-    mainpypath = name + "/" + name + "/main.py"
+    mainpypath = os.path.join(name, name, "main.py")
     codebuffer = ("import click\n\n\n"
                   "@click.command()\n"
                   "def main():\n"
