@@ -72,6 +72,7 @@ def MakeSetupPy(name):
          "        [console_scripts]\n"
          "        {0}={0}.main:main\n"
          "    ''',\n"
+         ")\n"
          ).format(name)
 
     try:
@@ -84,7 +85,7 @@ def MakeSetupPy(name):
 
 def MakeMainPy(name):
     mainpypath = name + "/" + name + "/main.py"
-    codebuffer = ("import click\n\n"
+    codebuffer = ("import click\n\n\n"
                   "@click.command()\n"
                   "def main():\n"
                   "    '''Skeleton App made by pymkcli'''\n"
