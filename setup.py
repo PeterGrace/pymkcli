@@ -8,6 +8,7 @@ setup(
     install_requires=[
         'Click',
         'Blessings',
+        'gitpython',
     ],
     entry_points='''
         [console_scripts]

@@ -2,6 +2,7 @@ import os
 import sys
 import blessings
 import click
+import git
 
 
 @click.command()
@@ -14,6 +15,7 @@ def main(name):
     MakeModule(name)
     MakeSetupPy(name)
     MakeMainPy(name)
+    MakeGitRepo(name)
 
 
 def MakeProjectFolder(name):
@@ -100,6 +102,28 @@ def MakeMainPy(name):
     except Exception:
         print "Unable to make main code file {0}".format(mainpypath)
         sys.exit(1)
+
+
+def MakeGitRepo(name):
+    repopath = name
+    try:
+        r = git.Repo.init(repopath)
+    except Exception:
+        print "Unable to create git repo at path {0}".format(repopath)
+        sys.exit(1)
+
+    try:
+        r.index.add([diff.a_blob.name for diff in r.index.diff(None)])
+    except Exception:
+        print "Unable to add the files to git staged commits"
+        sys.exit(1)
+
+    try:
+        r.index.commit("initial commit by pymkcli")
+    except Exception:
+        print "Unable to commit to the repo"
+        sys.exit(1)
+
 
 if __name__ == '__main__':
     hello()
