@@ -9,6 +9,9 @@ setup(
         'Click',
         'Blessings',
         'gitpython',
+        'setuptools-lint',
+        'pytest'
+
     ],
     entry_points='''
         [console_scripts]
