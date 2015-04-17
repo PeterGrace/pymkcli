@@ -31,8 +31,7 @@ def MakeReadme(name):
     readme = os.path.join(name, "README.md")
     buffer = ("{0}\n"
               "===============\n"
-              "This is a skeleton readme made by pymkcli\n"
-              ).format(name)
+              "This is a skeleton readme made by pymkcli\n").format(name)
     try:
         with open(readme, "w") as f:
             f.write(buffer)
@@ -69,14 +68,14 @@ def MakeSetupPy(name):
          "    install_requires=[\n"
          "        'click',\n"
          "        'blessings',\n"
+         "        'setuptools-lint,\n"
+         "        'pytest',\n"
          "    ],\n"
          "    entry_points='''\n"
          "        [console_scripts]\n"
          "        {0}={0}.main:main\n"
          "    ''',\n"
-         ")\n"
-         ).format(name)
-
+         ")\n").format(name)
     try:
         with open(setuppath, 'w') as f:
             f.write(s)
@@ -93,9 +92,7 @@ def MakeMainPy(name):
                   "    '''Skeleton App made by pymkcli'''\n"
                   "    print 'Hello, I am {0}!'\n\n"
                   "if __name__ == '__main__':\n"
-                  "    main()\n"
-                  ).format(name)
-
+                  "    main()\n").format(name)
     try:
         with open(mainpypath, 'w') as f:
             f.write(codebuffer)
