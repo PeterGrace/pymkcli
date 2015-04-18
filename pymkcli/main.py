@@ -90,7 +90,8 @@ def make_setup_py(name):
 def make_main_py(name):
     """Create main.py file in module where initial code for app should reside."""
     mainpypath = os.path.join(name, name, "main.py")
-    code_buffer = ("import click\n\n\n"
+    code_buffer = ("\"\"\"The primary module for this skeleton application.\"\"\"\n"
+                   "import click\n\n\n"
                    "@click.command()\n"
                    "def main():\n"
                    "    '''Skeleton App made by pymkcli'''\n"
