@@ -71,7 +71,7 @@ def make_setup_py(name):
                     "    install_requires=[\n"
                     "        'click',\n"
                     "        'blessings',\n"
-                    "        'setuptools-lint,\n"
+                    "        'setuptools-lint',\n"
                     "        'pytest',\n"
                     "    ],\n"
                     "    entry_points='''\n"
