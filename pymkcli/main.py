@@ -70,7 +70,6 @@ def make_setup_py(name):
                     "    include_package_data=True,\n"
                     "    install_requires=[\n"
                     "        'click',\n"
-                    "        'blessings',\n"
                     "        'setuptools-lint',\n"
                     "        'pytest',\n"
                     "    ],\n"
