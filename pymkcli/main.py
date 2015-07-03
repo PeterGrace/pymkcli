@@ -2,7 +2,8 @@
 import os
 import sys
 import click
-import git
+import sh
+import pdb
 
 
 @click.command()
@@ -15,6 +16,7 @@ def main(name):
     make_module(name)
     make_setup_py(name)
     make_main_py(name)
+    make_gitignore(name)
     make_git_repo(name)
 
 
@@ -104,26 +106,35 @@ def make_main_py(name):
         print "Unable to make main code file {0}".format(mainpypath)
         sys.exit(1)
 
+def make_gitignore(name):
+    """Create gitignore file"""
+    gitignorepath = os.path.join(name, ".gitignore")
+    code_buffer = ("*.pyc\n"
+                   "*.egg_info\n"
+                  )
+    try:
+        with open(gitignorepath, 'w') as ignore_fd:
+            ignore_fd.write(code_buffer)
+    except Exception as ex:
+        print "Unable to make .gitignore file {0}:{1}".format(gitignorepath,ex.message)
+        sys.exit(1)
+
 
 def make_git_repo(name):
-    "Make a git repo for the new project, add all the files to it and commit them."""
-    repopath = name
-    try:
-        repo = git.Repo.init(repopath)
-    except Exception:
-        print "Unable to create git repo at path {0}".format(repopath)
+    git = sh.git.bake(_cwd=name)
+    init_repo=git.init()
+    if init_repo.exit_code != 0:
+        print "Unable to make repo: {msg}".format(msg=init_repo)
         sys.exit(1)
 
-    try:
-        repo.index.add([diff.a_blob.name for diff in repo.index.diff(None)])
-    except Exception:
-        print "Unable to add the files to git staged commits"
+    add_files=git.add('-A', '.')
+    if add_files.exit_code != 0:
+        print "Unable to add files to new repo: {msg}".format(msg=add_files)
         sys.exit(1)
 
-    try:
-        repo.index.commit("initial commit by pymkcli")
-    except Exception:
-        print "Unable to commit to the repo"
+    commit_repo=git.commit(m='initial commit')
+    if commit_repo.exit_code != 0:
+        print "Unable to commit repo: {msg}".format(msg=commit_repo)
         sys.exit(1)
 
 
