@@ -6,8 +6,8 @@ This project creates a skeleton python project with some basic mix-ins that faci
 Dependencies used
 -----------------
 - Click
-- Blessings
-- GitPython
+- sh (to use git in a subprocess)
+- setuptools-lint (to lint for style compliance)
 
 
 What it does
