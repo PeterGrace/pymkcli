@@ -110,7 +110,7 @@ def make_gitignore(name):
     """Create gitignore file"""
     gitignorepath = os.path.join(name, ".gitignore")
     code_buffer = ("*.pyc\n"
-                   "*.egg_info\n"
+                   "*.egg-info\n"
                   )
     try:
         with open(gitignorepath, 'w') as ignore_fd:
